@@ -8,15 +8,15 @@ var $handleNewItem = document.querySelector("#handleNewItem");
 
 var todoItems = [];
 
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
     populateTodoList();
 });
 
-$handleNewItem.addEventListener("click", function () {
+$handleNewItem.addEventListener("click", () => {
     addNewItem();
 });
 
-$newItem.addEventListener("keyup", function (event) {
+$newItem.addEventListener("keyup", (event) => {
     if (event.keyCode === 13) {
         event.preventDefault();
         addNewItem();
@@ -25,7 +25,7 @@ $newItem.addEventListener("keyup", function (event) {
 
 function populateTodoList() {
     toogleEmptyItemsComponents();
-    todoItems.forEach(function (item) {
+    todoItems.forEach((item) => {
         $todoItems.appendChild(createTodoItem(item));
         addItemEventListeners();
     });
@@ -50,9 +50,15 @@ function addItemEventListeners() {
     var btnEdit = document.querySelector(".btn-edit");
     var checkmark = document.querySelector(".checkmark");
 
-    btnDelete.addEventListener("click", deleteItem);
-    btnEdit.addEventListener("click", enableEditItem);
-    checkmark.addEventListener("click", toogleCheckedItem);
+    btnDelete.addEventListener("click", (event) => {
+        deleteItem(event);
+    });
+    btnEdit.addEventListener("click", (event) => {
+        enableEditItem(event);
+    });
+    checkmark.addEventListener("click", (event) => {
+        toogleCheckedItem(event);
+    });
 }
 
 function addNewItem() {
@@ -76,7 +82,7 @@ function addNewItem() {
     }
 }
 
-function deleteItem() {
+function deleteItem(event) {
     var li = event.currentTarget.parentElement;
     var id = getItemIDfromUI(li);
 
@@ -90,10 +96,58 @@ function deleteItem() {
     toogleEmptyItemsComponents();
 }
 
-function enableEditItem() {
-    console.log(event.currentTarget);
+function enableEditItem(event) {
+    var li = event.currentTarget.parentElement;
+    var input = li.querySelector("input");
+
+    // clone input to prevent multiple event listeners
+    var new_input = input.cloneNode(true);
+    li.replaceChild(new_input, input);
+    new_input.removeAttribute("readonly");
+    new_input.focus();
+    new_input.selectionStart = new_input.selectionEnd = 10000;
+
+    // add event on blur to turn readonly again
+    new_input.addEventListener("blur", (event) => {
+        editItem(event);
+        new_input.setAttribute("readonly", "1");
+    });
 }
 
-function toogleCheckedItem() {
-    console.log(event.currentTarget);
+function toogleCheckedItem(event) {
+    var li = event.currentTarget.parentElement;
+    var id = getItemIDfromUI(li);
+
+    // update the ui
+    if (li.classList.contains("completed")) {
+        li.classList.remove("completed");
+    } else {
+        li.classList.add("completed");
+    }
+
+    // update the item
+    updateItem({
+        id: id,
+        title: getItemByID(id).title,
+        completed: !getItemByID(id).completed,
+    });
+}
+
+function editItem(event) {
+    var li = event.currentTarget.parentElement;
+    var id = getItemIDfromUI(li);
+
+    if (event.currentTarget.value === "") {
+        // if empty, delete the item
+        li.querySelector(".btn-delete").click();
+    } else {
+        // else, update the item
+        if (getItemByID(id).title !== event.currentTarget.value) {
+            updateItem({
+                id: id,
+                title: event.currentTarget.value,
+                completed: getItemByID(id).completed,
+            });
+        }
+    }
 }

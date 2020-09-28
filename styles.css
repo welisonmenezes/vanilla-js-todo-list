@@ -34,6 +34,9 @@ input[type='text'] {
 input[type='text']:focus {
     outline: none;
 }
+input:read-only {
+    background-color: transparent;
+}
 button {
     background-color: transparent !important;
     border: none;
@@ -199,7 +202,7 @@ button {
     display: block;
     background-color: #008080;
     height: 3px;
-    width: 76%;
+    width: 0%;
 }
 .status span {
     font-size: .9rem;
@@ -257,14 +260,14 @@ button {
     right: 5px;
 }
 .list .checkmark {
-    background-color: transparent;
+    background-color: #fff;
     border: 1px solid #ccc;
     left: 11px;
     border-radius: .3rem;
     cursor: pointer;
 }
 .list .completed input {
-    color: #ddd;
+    color: #b0b0b0;
     text-decoration: line-through;
 }
 .list .completed .checkmark {

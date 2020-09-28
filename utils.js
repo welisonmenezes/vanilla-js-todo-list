@@ -86,3 +86,21 @@ function getItemIDfromUI(li) {
     var id = li.getAttribute('id');
     return id.replace("ui-item-id_", "");
 }
+
+function updateItem(newItem) {
+    todoItems.map((item) => {
+        if (item.id === newItem.id) {
+            item.title = newItem.title;
+            item.completed = newItem.completed;
+        }
+    });
+
+    console.log(todoItems)
+}
+
+function getItemByID(id) {
+    var theItem = todoItems.filter((item) => {
+        return item.id === id;
+    });
+    return theItem[0];
+}
