@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A Todo List App written with native javascript">
+    <title>Vanilla Js Todo List</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- search form -->
+    <!-- filter tags -->
+    <!-- list todos -->
+    <!-- add form -->
+    <!-- status bar -->
+
+    <div class="root">
+        <div class="forkme">
+            <a href="#" target="_blank"
+                title="Vanilla Js Todo List - Github Welison Menezes">Fork me on GitHub</a>
+        </div>
+        <div class="todo-app">
+            <header class="header">
+                <img src="logo.png" alt="Logo">
+                <h1>Vanilla Js <span>Todo List</span></h1>
+            </header>
+            <div class="filter">
+                <input type="text" placeholder="Search Todo...">
+                <ul>
+                    <li class="active" tabindex="0">All</li>
+                    <li tabindex="0">Active</li>
+                    <li tabindex="0">Completed</li>
+                </ul>
+            </div>
+            <div class="status">
+                <span>3 of 10</span>
+                <div></div>
+            </div>
+            <div class="list">
+                <ul>
+                    <li>
+                        <span class="checkmark" tabindex="0"></span>
+                        <input type="text" value="Todo list" readonly tabindex="-1">
+                        <button type="button" class="btn-edit">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="btn-delete">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </li>
+                    <li class="completed">
+                        <span class="checkmark" tabindex="0"></span>
+                        <input type="text" value="Todo list title" readonly tabindex="-1">
+                        <button type="button" class="btn-edit">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="btn-delete">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </li>
+                    <li>
+                        <span class="checkmark" tabindex="0"></span>
+                        <input type="text" value="Todo list title" readonly tabindex="-1">
+                        <button type="button" class="btn-edit">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="btn-delete">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </li>
+                    <li>
+                        <span class="checkmark" tabindex="0"></span>
+                        <input type="text" value="Todo list title" readonly tabindex="-1">
+                        <button type="button" class="btn-edit">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="btn-delete">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </li>
+                    <li class="completed">
+                        <span class="checkmark" tabindex="0"></span>
+                        <input type="text" value="Todo list title" readonly tabindex="-1">
+                        <button type="button" class="btn-edit">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="btn-delete">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </li>
+                    <li>
+                        <span class="checkmark" tabindex="0"></span>
+                        <input type="text" value="Todo list title" readonly tabindex="-1">
+                        <button type="button" class="btn-edit">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="btn-delete">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </li>
+                    <li>
+                        <span class="checkmark" tabindex="0"></span>
+                        <input type="text" value="Todo list title" readonly tabindex="-1">
+                        <button type="button" class="btn-edit">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="btn-delete">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </li>
+                    <li>
+                        <span class="checkmark" tabindex="0"></span>
+                        <input type="text" value="Todo list title" readonly tabindex="-1">
+                        <button type="button" class="btn-edit">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button type="button" class="btn-delete">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="create">
+                <div>
+                    <input type="text" placeholder="New Todo...">
+                    <button type="button" class="btn-add">
+                        <i class="material-icons">add</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
