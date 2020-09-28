@@ -54,18 +54,29 @@ button {
     background: #302b63;
 }
 
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
 .root {
-    max-width: 500px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     display: flex;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
 }
 
 .todo-app {
     width: 100%;
+    max-width: 500px;
     padding: 1rem 1rem 0 1rem;
     overflow: hidden;
     border-radius: .6rem;
@@ -74,9 +85,9 @@ button {
     -moz-box-shadow: 0px 0px 26px 4px rgba(255,255,255,.2);
     box-shadow: 0px 0px 26px 4px rgba(255,255,255,.2);
     background: rgb(255,255,255);
-    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(241,241,241,1) 50%, rgba(225,225,225,1) 51%, rgba(246,246,246,1) 100%);
-    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%);
-    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(241,241,241,1) 50%,rgba(225,225,225,1) 51%,rgba(246,246,246,1) 100%);
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 100%);
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 100%);
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 100%);
 }
 
 .forkme{
@@ -138,13 +149,13 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
+    padding: 1rem 0;
 }
 .filter input {
     display: inline-block;
     width: auto;
     border-radius: .3rem;
-    margin-right: 1rem;
+    margin-right: 11px;
     height: 20px;
 }
 .filter ul {
@@ -250,6 +261,7 @@ button {
     border: 1px solid #ccc;
     left: 11px;
     border-radius: .3rem;
+    cursor: pointer;
 }
 .list .completed input {
     color: #ddd;
@@ -292,7 +304,7 @@ button {
 .create {
     margin-right: -1rem;
     margin-left: -1rem;
-    padding: 1rem 0;
+    margin-bottom: 1rem;
     background: transparent;
 }
 .create .btn-add {
@@ -303,6 +315,9 @@ button {
     border-radius: 50%;
     text-align: center;
     color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .create .btn-add  i {
     font-size: 1.5rem;
@@ -315,7 +330,7 @@ button {
 }
 .create input {
     border-radius: .5rem;
-    margin-right: 1rem;
+    margin-right: 11px;
 }
 
 @media (max-width: 530px) {

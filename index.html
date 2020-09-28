@@ -11,11 +11,6 @@
 </head>
 
 <body>
-    <!-- search form -->
-    <!-- filter tags -->
-    <!-- list todos -->
-    <!-- add form -->
-    <!-- status bar -->
 
     <div class="root">
         <div class="forkme">
@@ -27,6 +22,27 @@
                 <img src="logo.png" alt="Logo">
                 <h1>Vanilla Js <span>Todo List</span></h1>
             </header>
+            <div class="create">
+                <div>
+                    <input type="text" placeholder="New Todo..." id="newItem">
+                    <button type="button" class="btn-add" id="handleNewItem">
+                        <i class="material-icons">add</i>
+                    </button>
+                </div>
+            </div>
+            <div class="status">
+                <span>3 of 10</span>
+                <div></div>
+            </div>
+            <div class="list">
+                <ul id="todo-items"></ul>
+            </div>
+            <div class="empty">
+                <p>
+                    <i class="material-icons">not_interested</i>
+                    No item found.
+                </p>
+            </div>
             <div class="filter">
                 <input type="text" placeholder="Search Todo...">
                 <ul>
@@ -35,111 +51,10 @@
                     <li tabindex="0">Completed</li>
                 </ul>
             </div>
-            <div class="status">
-                <span>3 of 10</span>
-                <div></div>
-            </div>
-            <div class="list">
-                <ul>
-                    <li>
-                        <span class="checkmark" tabindex="0"></span>
-                        <input type="text" value="Todo list" readonly tabindex="-1">
-                        <button type="button" class="btn-edit">
-                            <i class="material-icons">edit</i>
-                        </button>
-                        <button type="button" class="btn-delete">
-                            <i class="material-icons">delete</i>
-                        </button>
-                    </li>
-                    <li class="completed">
-                        <span class="checkmark" tabindex="0"></span>
-                        <input type="text" value="Todo list title" readonly tabindex="-1">
-                        <button type="button" class="btn-edit">
-                            <i class="material-icons">edit</i>
-                        </button>
-                        <button type="button" class="btn-delete">
-                            <i class="material-icons">delete</i>
-                        </button>
-                    </li>
-                    <li>
-                        <span class="checkmark" tabindex="0"></span>
-                        <input type="text" value="Todo list title" readonly tabindex="-1">
-                        <button type="button" class="btn-edit">
-                            <i class="material-icons">edit</i>
-                        </button>
-                        <button type="button" class="btn-delete">
-                            <i class="material-icons">delete</i>
-                        </button>
-                    </li>
-                    <li>
-                        <span class="checkmark" tabindex="0"></span>
-                        <input type="text" value="Todo list title" readonly tabindex="-1">
-                        <button type="button" class="btn-edit">
-                            <i class="material-icons">edit</i>
-                        </button>
-                        <button type="button" class="btn-delete">
-                            <i class="material-icons">delete</i>
-                        </button>
-                    </li>
-                    <li class="completed">
-                        <span class="checkmark" tabindex="0"></span>
-                        <input type="text" value="Todo list title" readonly tabindex="-1">
-                        <button type="button" class="btn-edit">
-                            <i class="material-icons">edit</i>
-                        </button>
-                        <button type="button" class="btn-delete">
-                            <i class="material-icons">delete</i>
-                        </button>
-                    </li>
-                    <li>
-                        <span class="checkmark" tabindex="0"></span>
-                        <input type="text" value="Todo list title" readonly tabindex="-1">
-                        <button type="button" class="btn-edit">
-                            <i class="material-icons">edit</i>
-                        </button>
-                        <button type="button" class="btn-delete">
-                            <i class="material-icons">delete</i>
-                        </button>
-                    </li>
-                    <li>
-                        <span class="checkmark" tabindex="0"></span>
-                        <input type="text" value="Todo list title" readonly tabindex="-1">
-                        <button type="button" class="btn-edit">
-                            <i class="material-icons">edit</i>
-                        </button>
-                        <button type="button" class="btn-delete">
-                            <i class="material-icons">delete</i>
-                        </button>
-                    </li>
-                    <li>
-                        <span class="checkmark" tabindex="0"></span>
-                        <input type="text" value="Todo list title" readonly tabindex="-1">
-                        <button type="button" class="btn-edit">
-                            <i class="material-icons">edit</i>
-                        </button>
-                        <button type="button" class="btn-delete">
-                            <i class="material-icons">delete</i>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <div class="empty">
-                <p>
-                    <i class="material-icons">grade</i>
-                    Congratulations, you have no pending items.
-                </p>
-            </div>
-            <div class="create">
-                <div>
-                    <input type="text" placeholder="New Todo...">
-                    <button type="button" class="btn-add">
-                        <i class="material-icons">add</i>
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
 
+    <script src="utils.js"></script>
     <script src="app.js"></script>
 </body>
 
