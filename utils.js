@@ -22,18 +22,18 @@ function createElement(type, attributes, content) {
 
 function createTodoItem(item) {
     var liConfig = item.completed
-        ? { class: "completed", id: 'ui-item-id_' + item.id }
-        : { id: 'ui-item-id_' + item.id };
+        ? { class: "completed", id: "ui-item-id_" + item.id }
+        : { id: "ui-item-id_" + item.id };
     var li = createElement("li", liConfig);
     var input = createElement("input", {
         type: "text",
         value: item.title,
         readOnly: "1",
-        tabindex: "-1",
+        tabIndex: -1,
     });
     var checkmark = createElement("span", {
         class: "checkmark",
-        tabindex: "0",
+        tabIndex: "0",
     });
     var iconEdit = createElement(
         "i",
@@ -83,7 +83,7 @@ function uniqueID() {
 }
 
 function getItemIDfromUI(li) {
-    var id = li.getAttribute('id');
+    var id = li.getAttribute("id");
     return id.replace("ui-item-id_", "");
 }
 
@@ -95,7 +95,7 @@ function updateItem(newItem) {
         }
     });
 
-    console.log(todoItems)
+    console.log(todoItems);
 }
 
 function getItemByID(id) {

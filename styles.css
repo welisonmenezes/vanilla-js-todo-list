@@ -216,15 +216,29 @@ button {
 }
 .list ul {
     overflow-x: auto;
+    overflow-x: hidden;
     max-height: 50vh;
     border-top: solid 1px #ddd;
     border-bottom: solid 1px #ddd;
 }
 .list ul li {
     position: relative;
+    transform: translate(-100px, 0);
+    opacity: 0;
+    transition: transform .5s, opacity .5s;
+}
+.list ul li.animate-in {
+    transform: translate(0, 0);
+    opacity: 1;
+}
+.list ul li.animate-out {
+    transform: translate(100px, 0);
+    opacity: 0;
 }
 .list ul li input {
     border-bottom: none;
+    border-left: none;
+    border-right: none;
     padding-left: 50px;
     padding-right: 80px;
     font-weight: 500;
@@ -248,10 +262,18 @@ button {
 }
 .list ul li:hover button {
     display: block;
+    border-radius: .3rem;
 }
 .list ul li button i {
     font-size: 1.2rem;
     color: #302b63;
+}
+.list ul li:hover button:hover {
+    background-color: #eee !important;
+}
+.list ul li:hover button:active,
+.list ul li:hover button:focus {
+    background-color: #ddd !important;
 }
 .list .btn-edit {
     right: 36px;
@@ -324,6 +346,13 @@ button {
 }
 .create .btn-add  i {
     font-size: 1.5rem;
+}
+.create .btn-add:hover {
+    background-color: #105e5e !important;
+}
+.create .btn-add:active,
+.create .btn-add:focus {
+    background-color: #0c4e4e !important;
 }
 .create > div {
     display: flex;

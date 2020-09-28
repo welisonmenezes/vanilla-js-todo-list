@@ -75,10 +75,13 @@ function addNewItem() {
         todoItems.unshift(newItem);
 
         // update the ui
-        $todoItems.prepend(createTodoItem(newItem));
+        var li = createTodoItem(newItem);
+        $todoItems.prepend(li);
+        setTimeout(() => li.classList.add("animate-in"), 1);
         addItemEventListeners();
         toogleEmptyItemsComponents();
         $newItem.value = "";
+        $newItem.focus();
     }
 }
 
@@ -86,14 +89,18 @@ function deleteItem(event) {
     var li = event.currentTarget.parentElement;
     var id = getItemIDfromUI(li);
 
-    // update state todoItems
-    todoItems = todoItems.filter((item) => {
-        return item.id !== id;
-    });
+    // apply out animetion
+    li.classList.add("animate-out");
+    setTimeout(() => {
+        // update state todoItems
+        todoItems = todoItems.filter((item) => {
+            return item.id !== id;
+        });
 
-    // update the ui
-    li.parentElement.removeChild(li);
-    toogleEmptyItemsComponents();
+        // update the ui
+        li.parentElement.removeChild(li);
+        toogleEmptyItemsComponents();
+    }, 500);
 }
 
 function enableEditItem(event) {
