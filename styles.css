@@ -197,12 +197,13 @@ button {
     height: 3px;
     background-color: #eee;
 }
-.status > div::after {
-    content: "";
-    display: block;
-    background-color: #008080;
+.status > div > div {
+    background-color: #008080 !important;
     height: 3px;
     width: 0%;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 .status span {
     font-size: .9rem;

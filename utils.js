@@ -3,7 +3,9 @@ function createElement(type, attributes, content) {
 
     for (var key in attributes) {
         if (key == "class") {
-            element.classList.add(attributes[key]);
+            attributes[key].split(" ").map((cls) => {
+                element.classList.add(cls);
+            });
         } else {
             element[key] = attributes[key];
         }
@@ -103,4 +105,30 @@ function getItemByID(id) {
         return item.id === id;
     });
     return theItem[0];
+}
+
+function getItemsCompleted() {
+    return todoItems.filter((item) => {
+        return item.completed;
+    });
+}
+
+function getItemsActive() {
+    return todoItems.filter((item) => {
+        return !item.completed;
+    });
+}
+
+function getTotalItems() {
+    return todoItems.length;
+}
+
+function getTotalCompletedItems() {
+    return getItemsCompleted().length;
+}
+
+function getPercentage() {
+    var total = todoItems.length;
+    var totalCompleted = getTotalCompletedItems();
+    return 100 / (total / totalCompleted);
 }

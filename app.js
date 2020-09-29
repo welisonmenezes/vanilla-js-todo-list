@@ -6,7 +6,33 @@ var $todoItems = document.querySelector("#todo-items");
 var $newItem = document.querySelector("#newItem");
 var $handleNewItem = document.querySelector("#handleNewItem");
 
-var todoItems = [];
+var todoItems = [
+    {
+        id: "1",
+        title: "Item 1",
+        completed: false,
+    },
+    {
+        id: "2",
+        title: "Item 2",
+        completed: true,
+    },
+    {
+        id: "3",
+        title: "Item 3",
+        completed: false,
+    },
+    {
+        id: "4",
+        title: "Item 4",
+        completed: true,
+    },
+    {
+        id: "5",
+        title: "Item 5",
+        completed: false,
+    },
+];
 
 window.addEventListener("load", () => {
     populateTodoList();
@@ -24,11 +50,15 @@ $newItem.addEventListener("keyup", (event) => {
 });
 
 function populateTodoList() {
-    toogleEmptyItemsComponents();
-    todoItems.forEach((item) => {
-        $todoItems.appendChild(createTodoItem(item));
-        addItemEventListeners();
+    $todoItems.innerHTML = "";
+    todoItems.forEach((item, index) => {
+        var li = createTodoItem(item, true);
+        $todoItems.appendChild(li);
+        setTimeout(() => li.classList.add("animate-in"), (index * 100));
+        addItemEventListeners(li);
     });
+    toogleEmptyItemsComponents();
+    updateTheStatus();
 }
 
 function toogleEmptyItemsComponents() {
@@ -45,10 +75,10 @@ function toogleEmptyItemsComponents() {
     }
 }
 
-function addItemEventListeners() {
-    var btnDelete = document.querySelector(".btn-delete");
-    var btnEdit = document.querySelector(".btn-edit");
-    var checkmark = document.querySelector(".checkmark");
+function addItemEventListeners(li) {
+    var btnDelete = li.querySelector(".btn-delete");
+    var btnEdit = li.querySelector(".btn-edit");
+    var checkmark = li.querySelector(".checkmark");
 
     btnDelete.addEventListener("click", (event) => {
         deleteItem(event);
@@ -78,8 +108,9 @@ function addNewItem() {
         var li = createTodoItem(newItem);
         $todoItems.prepend(li);
         setTimeout(() => li.classList.add("animate-in"), 1);
-        addItemEventListeners();
+        addItemEventListeners(li);
         toogleEmptyItemsComponents();
+        updateTheStatus();
         $newItem.value = "";
         $newItem.focus();
     }
@@ -100,6 +131,7 @@ function deleteItem(event) {
         // update the ui
         li.parentElement.removeChild(li);
         toogleEmptyItemsComponents();
+        updateTheStatus();
     }, 500);
 }
 
@@ -138,6 +170,8 @@ function toogleCheckedItem(event) {
         title: getItemByID(id).title,
         completed: !getItemByID(id).completed,
     });
+
+    updateTheStatus();
 }
 
 function editItem(event) {
@@ -157,4 +191,14 @@ function editItem(event) {
             });
         }
     }
+}
+
+function updateTheStatus() {
+    var bar = $statusComponent.querySelector(".status-bar");
+    var span = $statusComponent.querySelector("span");
+    var textStatus = getTotalCompletedItems() + " of " + todoItems.length;
+
+    // update the ui
+    bar.style.width = getPercentage() + "%";
+    span.innerHTML = textStatus;
 }
