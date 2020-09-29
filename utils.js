@@ -96,8 +96,6 @@ function updateItem(newItem) {
             item.completed = newItem.completed;
         }
     });
-
-    console.log(todoItems);
 }
 
 function getItemByID(id) {
@@ -131,4 +129,10 @@ function getPercentage() {
     var total = todoItems.length;
     var totalCompleted = getTotalCompletedItems();
     return 100 / (total / totalCompleted);
+}
+
+function getFilteredItems(items, title) {
+    return items.filter((item) => {
+        return item.title.toLowerCase().includes(title.toLowerCase());
+    });
 }

@@ -46,15 +46,16 @@
             <div class="filter">
                 <input type="text" placeholder="Search Todo...">
                 <ul>
-                    <li class="active" tabindex="0">All</li>
-                    <li tabindex="0">Active</li>
-                    <li tabindex="0">Completed</li>
+                    <li class="active" tabindex="0" data-status="all">All</li>
+                    <li tabindex="0" data-status="active">Active</li>
+                    <li tabindex="0" data-status="completed">Completed</li>
                 </ul>
             </div>
         </div>
     </div>
 
     <script src="utils.js"></script>
+    <script src="storage.js"></script>
     <script src="app.js"></script>
 </body>
 

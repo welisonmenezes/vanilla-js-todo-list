@@ -1,3 +1,7 @@
+/*************************************************************************
+ * SELECT THE HTML ELEMENTS
+ *************************************************************************/
+
 var $listComponent = document.querySelector(".list");
 var $emptyComponent = document.querySelector(".empty");
 var $statusComponent = document.querySelector(".status");
@@ -6,36 +10,26 @@ var $todoItems = document.querySelector("#todo-items");
 var $newItem = document.querySelector("#newItem");
 var $handleNewItem = document.querySelector("#handleNewItem");
 
-var todoItems = [
-    {
-        id: "1",
-        title: "Item 1",
-        completed: false,
-    },
-    {
-        id: "2",
-        title: "Item 2",
-        completed: true,
-    },
-    {
-        id: "3",
-        title: "Item 3",
-        completed: false,
-    },
-    {
-        id: "4",
-        title: "Item 4",
-        completed: true,
-    },
-    {
-        id: "5",
-        title: "Item 5",
-        completed: false,
-    },
-];
+/*************************************************************************
+ * THE GLOBAL STATE
+ *************************************************************************/
+
+var todoItems = [];
+var filterStatus = "";
+var filterQuery = "";
+
+/*************************************************************************
+ * ADD EVENTS
+ *************************************************************************/
 
 window.addEventListener("load", () => {
     populateTodoList();
+
+    // set the current filter status on UI
+    var currentLI = $filterComponent.querySelector('[data-status="'+filterStatus+'"]');
+    if (currentLI) {
+        setActiveFilterStatusBtn(currentLI);
+    }
 });
 
 $handleNewItem.addEventListener("click", () => {
@@ -49,20 +43,59 @@ $newItem.addEventListener("keyup", (event) => {
     }
 });
 
-function populateTodoList() {
+$filterComponent.querySelectorAll("li").forEach((li) => {
+    li.addEventListener("click", (event) => {
+        filterListByStatus(event);
+    });
+});
+
+$filterComponent.querySelector("input").addEventListener("input", (event) => {
+    filterListByTitle(event);
+});
+
+/*************************************************************************
+ * METHODS
+ *************************************************************************/
+
+// POPULATE THE UI LIST
+function populateTodoList(onload = true) {
     $todoItems.innerHTML = "";
-    todoItems.forEach((item, index) => {
+    var items = [];
+
+    switch (filterStatus) {
+        case "active":
+            items = getItemsActive();
+            break;
+        case "completed":
+            items = getItemsCompleted();
+            break;
+        default:
+            items = todoItems;
+            break;
+    }
+
+    if (filterQuery.trim() !== "") {
+        items = getFilteredItems(items, filterQuery);
+    }
+
+    items.forEach((item, index) => {
         var li = createTodoItem(item, true);
         $todoItems.appendChild(li);
-        setTimeout(() => li.classList.add("animate-in"), (index * 100));
+        if (onload) {
+            setTimeout(() => li.classList.add("animate-in"), index * 100);
+        } else {
+            setTimeout(() => li.classList.add("filtered"), 1);
+        }
         addItemEventListeners(li);
     });
+
     toogleEmptyItemsComponents();
     updateTheStatus();
 }
 
+// SHOW/HIDE SOME ELEMENTS ACCORDING IF TODO ITEMS HAS ELEMENT
 function toogleEmptyItemsComponents() {
-    if (todoItems.length > 0) {
+    if (getTotalItems() > 0) {
         $emptyComponent.classList.remove("show");
         $listComponent.classList.remove("hide");
         $statusComponent.classList.remove("hide");
@@ -75,6 +108,7 @@ function toogleEmptyItemsComponents() {
     }
 }
 
+// ADD EVENTS TO THE TODO ITEMS ACTIONS
 function addItemEventListeners(li) {
     var btnDelete = li.querySelector(".btn-delete");
     var btnEdit = li.querySelector(".btn-edit");
@@ -91,6 +125,7 @@ function addItemEventListeners(li) {
     });
 }
 
+// ADD NEW ITEM TO THE TODO LIST
 function addNewItem() {
     var title = $newItem.value;
     if (title && title !== "") {
@@ -116,12 +151,14 @@ function addNewItem() {
     }
 }
 
+// DELETE AN ITEM FROM THE TODO LIST
 function deleteItem(event) {
     var li = event.currentTarget.parentElement;
     var id = getItemIDfromUI(li);
 
     // apply out animetion
     li.classList.add("animate-out");
+    li.classList.remove("filtered");
     setTimeout(() => {
         // update state todoItems
         todoItems = todoItems.filter((item) => {
@@ -135,6 +172,7 @@ function deleteItem(event) {
     }, 500);
 }
 
+// TURN THE TODO ITEM EDITABLE
 function enableEditItem(event) {
     var li = event.currentTarget.parentElement;
     var input = li.querySelector("input");
@@ -153,6 +191,7 @@ function enableEditItem(event) {
     });
 }
 
+// CHECK/UNCHECK THE TODO LIST ITEM
 function toogleCheckedItem(event) {
     var li = event.currentTarget.parentElement;
     var id = getItemIDfromUI(li);
@@ -174,6 +213,7 @@ function toogleCheckedItem(event) {
     updateTheStatus();
 }
 
+// EDIT THE TODO LIST ITEM
 function editItem(event) {
     var li = event.currentTarget.parentElement;
     var id = getItemIDfromUI(li);
@@ -189,16 +229,39 @@ function editItem(event) {
                 title: event.currentTarget.value,
                 completed: getItemByID(id).completed,
             });
+            populateTodoList(false);
         }
     }
 }
 
+// UPDATE THE STATUS BAR
 function updateTheStatus() {
     var bar = $statusComponent.querySelector(".status-bar");
     var span = $statusComponent.querySelector("span");
-    var textStatus = getTotalCompletedItems() + " of " + todoItems.length;
+    var textStatus = getTotalCompletedItems() + " of " + getTotalItems();
 
     // update the ui
     bar.style.width = getPercentage() + "%";
     span.innerHTML = textStatus;
+}
+
+// FILTER THE TODO LIST BY STATUS
+function filterListByStatus(event) {
+    filterStatus = event.currentTarget.getAttribute("data-status");
+    populateTodoList(false);
+    setActiveFilterStatusBtn(event.currentTarget);
+}
+
+// FILTER THE TODO LIST BY TITLE
+function filterListByTitle(event) {
+    filterQuery = event.currentTarget.value;
+    populateTodoList(false);
+}
+
+// SET THE CURRENT FILTER STATUS SELECTED ON UI
+function setActiveFilterStatusBtn(theActive) {
+    $filterComponent.querySelectorAll("li").forEach((li) => {
+        li.classList.remove("active");
+    });
+    theActive.classList.add("active");
 }
