@@ -14,7 +14,7 @@ body {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    background: #0f0c29; 
+    background: #0f0c29;
     background: -moz-linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
     background: -webkit-linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
     background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
@@ -24,14 +24,14 @@ ol,
 li {
     list-style: none;
 }
-input[type='text'] {
+input[type="text"] {
     width: 100%;
     display: block;
     border: solid 1px #ddd;
-    padding: .9rem;
-    font-size: .9rem;
+    padding: 0.9rem;
+    font-size: 0.9rem;
 }
-input[type='text']:focus {
+input[type="text"]:focus {
     outline: none;
 }
 input:read-only {
@@ -82,51 +82,62 @@ button {
     max-width: 500px;
     padding: 1rem 1rem 0 1rem;
     overflow: hidden;
-    border-radius: .6rem;
+    border-radius: 0.6rem;
     margin: 2rem 0;
-    -webkit-box-shadow: 0px 0px 26px 4px rgba(255,255,255,.2);
-    -moz-box-shadow: 0px 0px 26px 4px rgba(255,255,255,.2);
-    box-shadow: 0px 0px 26px 4px rgba(255,255,255,.2);
-    background: rgb(255,255,255);
-    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 100%);
-    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 100%);
-    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%, rgba(246,246,246,1) 100%);
+    -webkit-box-shadow: 0px 0px 26px 4px rgba(255, 255, 255, 0.2);
+    -moz-box-shadow: 0px 0px 26px 4px rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 0px 26px 4px rgba(255, 255, 255, 0.2);
+    background: rgb(255, 255, 255);
+    background: -moz-linear-gradient(
+        top,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(246, 246, 246, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+        top,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(246, 246, 246, 1) 100%
+    );
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(246, 246, 246, 1) 100%
+    );
 }
 
-.forkme{
-    position: absolute; 
+.forkme {
+    position: absolute;
     top: 42px;
     right: -42px;
     width: 200px;
     padding: 1px 0;
     background: #008080;
     color: #eee;
-    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     -moz-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     -o-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-
-.forkme a{
+.forkme a {
     display: block;
     padding: 1px 0;
     height: 24px;
     line-height: 24px;
-    color: inherit;  
+    color: inherit;
     text-align: center;
     text-decoration: none;
     font-size: 12px;
     font-weight: 500;
     white-space: nowrap;
     letter-spacing: 0;
-    border: 1px solid rgba(255,255,255,0.3);
-    -moz-text-shadow: 0 0 10px rgba(0,0,0,0.31);
-    -webkit-text-shadow: 0 0 10px rgba(0,0,0,0.31);
-    text-shadow: 0 0 10px rgba(0,0,0,0.31);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    -moz-text-shadow: 0 0 10px rgba(0, 0, 0, 0.31);
+    -webkit-text-shadow: 0 0 10px rgba(0, 0, 0, 0.31);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.31);
 }
 
 .header {
@@ -145,7 +156,7 @@ button {
 .header img {
     width: 30px;
     height: 30px;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
 }
 
 .filter {
@@ -157,7 +168,7 @@ button {
 .filter input {
     display: inline-block;
     width: auto;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
     margin-right: 11px;
     height: 20px;
 }
@@ -167,13 +178,13 @@ button {
     justify-content: start;
 }
 .filter ul li {
-    margin: 0 .25rem;
+    margin: 0 0.25rem;
     cursor: pointer;
-    padding: .1rem .5rem;
-    border-radius: .3rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.3rem;
     border: solid 1px #302b63;
     color: #302b63;
-    font-size: .65rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
 }
 .filter ul li.active {
@@ -206,7 +217,7 @@ button {
     top: 0;
 }
 .status span {
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-style: italic;
     display: block;
     text-align: center;
@@ -226,7 +237,7 @@ button {
     position: relative;
     transform: translate(-100px, 0);
     opacity: 0;
-    transition: transform .5s, opacity .5s;
+    transition: transform 0.5s, opacity 0.5s;
 }
 .list ul li.animate-in {
     transform: translate(0, 0);
@@ -255,7 +266,7 @@ button {
 .list ul li:first-child input {
     border-top: none;
 }
-.list ul li button, 
+.list ul li button,
 .list .checkmark {
     display: block;
     width: 30px;
@@ -268,7 +279,7 @@ button {
 }
 .list ul li:hover button {
     display: block;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
 }
 .list ul li button i {
     font-size: 1.2rem;
@@ -291,7 +302,7 @@ button {
     background-color: #fff;
     border: 1px solid #ccc;
     left: 11px;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
     cursor: pointer;
 }
 .list .completed input {
@@ -350,7 +361,7 @@ button {
     justify-content: center;
     align-items: center;
 }
-.create .btn-add  i {
+.create .btn-add i {
     font-size: 1.5rem;
 }
 .create .btn-add:hover {
@@ -367,7 +378,7 @@ button {
     padding: 0 11px;
 }
 .create input {
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     margin-right: 11px;
 }
 
@@ -410,6 +421,6 @@ button {
     }
     .filter input {
         width: 100%;
-        margin-bottom: .5rem;
+        margin-bottom: 0.5rem;
     }
 }

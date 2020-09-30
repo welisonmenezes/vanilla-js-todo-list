@@ -23,12 +23,15 @@ var filterQuery = "";
  *************************************************************************/
 
 window.addEventListener("load", () => {
+    setStateFromLocalStorage();
     populateTodoList();
 
     // set the current filter status on UI
-    var currentLI = $filterComponent.querySelector('[data-status="'+filterStatus+'"]');
-    if (currentLI) {
-        setActiveFilterStatusBtn(currentLI);
+    var $currentLI = $filterComponent.querySelector(
+        '[data-status="' + filterStatus + '"]'
+    );
+    if ($currentLI) {
+        setActiveFilterStatusBtn($currentLI);
     }
 });
 
@@ -43,8 +46,8 @@ $newItem.addEventListener("keyup", (event) => {
     }
 });
 
-$filterComponent.querySelectorAll("li").forEach((li) => {
-    li.addEventListener("click", (event) => {
+$filterComponent.querySelectorAll("li").forEach(($li) => {
+    $li.addEventListener("click", (event) => {
         filterListByStatus(event);
     });
 });
@@ -79,14 +82,14 @@ function populateTodoList(onload = true) {
     }
 
     items.forEach((item, index) => {
-        var li = createTodoItem(item, true);
-        $todoItems.appendChild(li);
+        var $li = createTodoItem(item, true);
+        $todoItems.appendChild($li);
         if (onload) {
-            setTimeout(() => li.classList.add("animate-in"), index * 100);
+            setTimeout(() => $li.classList.add("animate-in"), index * 100);
         } else {
-            setTimeout(() => li.classList.add("filtered"), 1);
+            setTimeout(() => $li.classList.add("filtered"), 1);
         }
-        addItemEventListeners(li);
+        addItemEventListeners($li);
     });
 
     toogleEmptyItemsComponents();
@@ -109,18 +112,18 @@ function toogleEmptyItemsComponents() {
 }
 
 // ADD EVENTS TO THE TODO ITEMS ACTIONS
-function addItemEventListeners(li) {
-    var btnDelete = li.querySelector(".btn-delete");
-    var btnEdit = li.querySelector(".btn-edit");
-    var checkmark = li.querySelector(".checkmark");
+function addItemEventListeners($li) {
+    var $btnDelete = $li.querySelector(".btn-delete");
+    var $btnEdit = $li.querySelector(".btn-edit");
+    var $checkmark = $li.querySelector(".checkmark");
 
-    btnDelete.addEventListener("click", (event) => {
+    $btnDelete.addEventListener("click", (event) => {
         deleteItem(event);
     });
-    btnEdit.addEventListener("click", (event) => {
+    $btnEdit.addEventListener("click", (event) => {
         enableEditItem(event);
     });
-    checkmark.addEventListener("click", (event) => {
+    $checkmark.addEventListener("click", (event) => {
         toogleCheckedItem(event);
     });
 }
@@ -140,25 +143,28 @@ function addNewItem() {
         todoItems.unshift(newItem);
 
         // update the ui
-        var li = createTodoItem(newItem);
-        $todoItems.prepend(li);
-        setTimeout(() => li.classList.add("animate-in"), 1);
-        addItemEventListeners(li);
+        var $li = createTodoItem(newItem);
+        $todoItems.prepend($li);
+        setTimeout(() => $li.classList.add("animate-in"), 1);
+        addItemEventListeners($li);
         toogleEmptyItemsComponents();
         updateTheStatus();
         $newItem.value = "";
         $newItem.focus();
+
+        // update the storage
+        localStorage["todoItems"] = JSON.stringify(todoItems);
     }
 }
 
 // DELETE AN ITEM FROM THE TODO LIST
 function deleteItem(event) {
-    var li = event.currentTarget.parentElement;
-    var id = getItemIDfromUI(li);
+    var $li = event.currentTarget.parentElement;
+    var id = getItemIDfromUI($li);
 
     // apply out animetion
-    li.classList.add("animate-out");
-    li.classList.remove("filtered");
+    $li.classList.add("animate-out");
+    $li.classList.remove("filtered");
     setTimeout(() => {
         // update state todoItems
         todoItems = todoItems.filter((item) => {
@@ -166,41 +172,44 @@ function deleteItem(event) {
         });
 
         // update the ui
-        li.parentElement.removeChild(li);
+        $li.parentElement.removeChild($li);
         toogleEmptyItemsComponents();
         updateTheStatus();
+
+        // update the storage
+        localStorage["todoItems"] = JSON.stringify(todoItems);
     }, 500);
 }
 
 // TURN THE TODO ITEM EDITABLE
 function enableEditItem(event) {
-    var li = event.currentTarget.parentElement;
-    var input = li.querySelector("input");
+    var $li = event.currentTarget.parentElement;
+    var $input = $li.querySelector("input");
 
     // clone input to prevent multiple event listeners
-    var new_input = input.cloneNode(true);
-    li.replaceChild(new_input, input);
-    new_input.removeAttribute("readonly");
-    new_input.focus();
-    new_input.selectionStart = new_input.selectionEnd = 10000;
+    var $new_input = $input.cloneNode(true);
+    $li.replaceChild($new_input, $input);
+    $new_input.removeAttribute("readonly");
+    $new_input.focus();
+    $new_input.selectionStart = $new_input.selectionEnd = 10000;
 
     // add event on blur to turn readonly again
-    new_input.addEventListener("blur", (event) => {
+    $new_input.addEventListener("blur", (event) => {
         editItem(event);
-        new_input.setAttribute("readonly", "1");
+        $new_input.setAttribute("readonly", "1");
     });
 }
 
 // CHECK/UNCHECK THE TODO LIST ITEM
 function toogleCheckedItem(event) {
-    var li = event.currentTarget.parentElement;
-    var id = getItemIDfromUI(li);
+    var $li = event.currentTarget.parentElement;
+    var id = getItemIDfromUI($li);
 
     // update the ui
-    if (li.classList.contains("completed")) {
-        li.classList.remove("completed");
+    if ($li.classList.contains("completed")) {
+        $li.classList.remove("completed");
     } else {
-        li.classList.add("completed");
+        $li.classList.add("completed");
     }
 
     // update the item
@@ -210,17 +219,20 @@ function toogleCheckedItem(event) {
         completed: !getItemByID(id).completed,
     });
 
+    // update the storage
+    localStorage["todoItems"] = JSON.stringify(todoItems);
+
     updateTheStatus();
 }
 
 // EDIT THE TODO LIST ITEM
 function editItem(event) {
-    var li = event.currentTarget.parentElement;
-    var id = getItemIDfromUI(li);
+    var $li = event.currentTarget.parentElement;
+    var id = getItemIDfromUI($li);
 
     if (event.currentTarget.value === "") {
         // if empty, delete the item
-        li.querySelector(".btn-delete").click();
+        $li.querySelector(".btn-delete").click();
     } else {
         // else, update the item
         if (getItemByID(id).title !== event.currentTarget.value) {
@@ -230,19 +242,22 @@ function editItem(event) {
                 completed: getItemByID(id).completed,
             });
             populateTodoList(false);
+
+            // update the storage
+            localStorage["todoItems"] = JSON.stringify(todoItems);
         }
     }
 }
 
 // UPDATE THE STATUS BAR
 function updateTheStatus() {
-    var bar = $statusComponent.querySelector(".status-bar");
-    var span = $statusComponent.querySelector("span");
+    var $bar = $statusComponent.querySelector(".status-bar");
+    var $span = $statusComponent.querySelector("span");
     var textStatus = getTotalCompletedItems() + " of " + getTotalItems();
 
     // update the ui
-    bar.style.width = getPercentage() + "%";
-    span.innerHTML = textStatus;
+    $bar.style.width = getPercentage() + "%";
+    $span.innerHTML = textStatus;
 }
 
 // FILTER THE TODO LIST BY STATUS
@@ -250,6 +265,9 @@ function filterListByStatus(event) {
     filterStatus = event.currentTarget.getAttribute("data-status");
     populateTodoList(false);
     setActiveFilterStatusBtn(event.currentTarget);
+
+    // update the storage
+    localStorage["filterStatus"] = filterStatus;
 }
 
 // FILTER THE TODO LIST BY TITLE
@@ -259,9 +277,20 @@ function filterListByTitle(event) {
 }
 
 // SET THE CURRENT FILTER STATUS SELECTED ON UI
-function setActiveFilterStatusBtn(theActive) {
-    $filterComponent.querySelectorAll("li").forEach((li) => {
-        li.classList.remove("active");
+function setActiveFilterStatusBtn($theActive) {
+    $filterComponent.querySelectorAll("li").forEach(($li) => {
+        $li.classList.remove("active");
     });
-    theActive.classList.add("active");
+    $theActive.classList.add("active");
+}
+
+// SET THE STATE FROM LOCAL STORAGE
+function setStateFromLocalStorage() {
+    if (localStorage["todoItems"]) {
+        todoItems = JSON.parse(localStorage["todoItems"]);
+    }
+
+    if (localStorage["filterStatus"]) {
+        filterStatus = localStorage["filterStatus"];
+    }
 }

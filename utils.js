@@ -1,79 +1,79 @@
 function createElement(type, attributes, content) {
-    var element = document.createElement(type);
+    var $element = document.createElement(type);
 
     for (var key in attributes) {
         if (key == "class") {
             attributes[key].split(" ").map((cls) => {
-                element.classList.add(cls);
+                $element.classList.add(cls);
             });
         } else {
-            element[key] = attributes[key];
+            $element[key] = attributes[key];
         }
     }
 
     if (content) {
         if (isElement(content)) {
-            element.appendChild(content);
+            $element.appendChild(content);
         } else {
-            element.innerHTML = content;
+            $element.innerHTML = content;
         }
     }
 
-    return element;
+    return $element;
 }
 
 function createTodoItem(item) {
     var liConfig = item.completed
         ? { class: "completed", id: "ui-item-id_" + item.id }
         : { id: "ui-item-id_" + item.id };
-    var li = createElement("li", liConfig);
-    var input = createElement("input", {
+    var $li = createElement("li", liConfig);
+    var $input = createElement("input", {
         type: "text",
         value: item.title,
         readOnly: "1",
         tabIndex: -1,
     });
-    var checkmark = createElement("span", {
+    var $checkmark = createElement("span", {
         class: "checkmark",
         tabIndex: "0",
     });
-    var iconEdit = createElement(
+    var $iconEdit = createElement(
         "i",
         {
             class: "material-icons",
         },
         "edit"
     );
-    var buttonEdit = createElement(
+    var $buttonEdit = createElement(
         "button",
         {
             type: "button",
             class: "btn-edit",
         },
-        iconEdit
+        $iconEdit
     );
-    var iconDelete = createElement(
+    var $iconDelete = createElement(
         "i",
         {
             class: "material-icons",
         },
         "delete"
     );
-    var buttonDelete = createElement(
+    var $buttonDelete = createElement(
         "button",
         {
             type: "button",
             class: "btn-delete",
         },
-        iconDelete
+        $iconDelete
     );
 
-    li.appendChild(checkmark);
-    li.appendChild(input);
-    li.appendChild(buttonEdit);
-    li.appendChild(buttonDelete);
+    $li.appendChild($checkmark);
+    $li.appendChild($input);
+    $li.appendChild($buttonEdit);
+    $li.appendChild($buttonDelete);
 
-    return li;
+    return $li;
 }
 
 function isElement(element) {
@@ -84,8 +84,8 @@ function uniqueID() {
     return "_" + Math.random().toString(36).substr(2, 9);
 }
 
-function getItemIDfromUI(li) {
-    var id = li.getAttribute("id");
+function getItemIDfromUI($li) {
+    var id = $li.getAttribute("id");
     return id.replace("ui-item-id_", "");
 }
 
