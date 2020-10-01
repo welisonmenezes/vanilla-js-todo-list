@@ -35,6 +35,14 @@ window.addEventListener("load", () => {
     }
 });
 
+document.querySelector('body').addEventListener('click', (event) => {
+    addEventsToAccessibility(event);
+});
+
+document.querySelector('body').addEventListener('keyup', (event) => {
+    addEventsToAccessibility(event);
+});
+
 $handleNewItem.addEventListener("click", () => {
     addNewItem();
 });
@@ -125,6 +133,14 @@ function addItemEventListeners($li) {
     });
     $checkmark.addEventListener("click", (event) => {
         toogleCheckedItem(event);
+    });
+    $checkmark.addEventListener("keydown", (event) => {
+        if (event.key === 'Enter') {
+            toogleCheckedItem(event);
+        }
+    });
+    $checkmark.addEventListener("focus", (event) => {
+        addAccessibilityToCheckmark(event);
     });
 }
 
@@ -293,4 +309,40 @@ function setStateFromLocalStorage() {
     if (localStorage["filterStatus"]) {
         filterStatus = localStorage["filterStatus"];
     }
+}
+
+function addEventsToAccessibility() {
+    document.querySelector('body').addEventListener('click', function(event) {
+        removeActiveClassFromItemUI(event);
+    });
+    document.querySelector('body').addEventListener('keyup', function(event) {
+        if (event.key === 'Tab') {
+            console.log('sexo')
+            removeActiveClassFromItemUI(event);
+        }
+    });
+}
+
+function removeActiveClassFromItemUI(event) {
+    if (event.target.parentElement) {
+        if(event.target.parentElement.classList.contains('list-item')) return;
+        if (event.target.parentElement.parentElement) {
+            if(event.target.parentElement.parentElement.classList.contains('list-item')) return;
+        }
+    }
+    if (document.querySelector('.list li.active')) {
+        document.querySelectorAll('.list li').forEach(item => {
+            item.classList.remove('active');
+        });
+    }
+}
+
+function addAccessibilityToCheckmark(event) {
+    document.querySelectorAll('.list li').forEach(item => {
+        item.classList.remove('active');
+    });
+    const parent = event.currentTarget.parentElement;
+    setTimeout(() => {
+        parent.classList.add('active');
+    }, 100);
 }

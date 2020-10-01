@@ -24,8 +24,8 @@ function createElement(type, attributes, content) {
 
 function createTodoItem(item) {
     var liConfig = item.completed
-        ? { class: "completed", id: "ui-item-id_" + item.id }
-        : { id: "ui-item-id_" + item.id };
+        ? { class: "completed list-item", id: "ui-item-id_" + item.id }
+        : { class: "list-item", id: "ui-item-id_" + item.id };
     var $li = createElement("li", liConfig);
     var $input = createElement("input", {
         type: "text",

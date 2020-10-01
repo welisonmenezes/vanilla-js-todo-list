@@ -288,7 +288,8 @@ button {
 .list ul li button {
     display: none;
 }
-.list ul li:hover button {
+.list ul li:hover button,
+.list ul li.active button {
     display: block;
     border-radius: 0.3rem;
 }
