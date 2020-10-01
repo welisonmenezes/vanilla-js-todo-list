@@ -215,6 +215,7 @@ button {
     position: absolute;
     left: 0;
     top: 0;
+    transition: width 0.5s;
 }
 .status span {
     font-size: 0.9rem;
