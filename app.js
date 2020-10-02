@@ -58,6 +58,12 @@ $filterComponent.querySelectorAll("li").forEach(($li) => {
     $li.addEventListener("click", (event) => {
         filterListByStatus(event);
     });
+
+    $li.addEventListener("keydown", (event) => {
+        if (event.key === 'Enter') {
+            filterListByStatus(event);
+        }
+    });
 });
 
 $filterComponent.querySelector("input").addEventListener("input", (event) => {
