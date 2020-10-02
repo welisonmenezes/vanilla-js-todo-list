@@ -33,6 +33,9 @@ window.addEventListener("load", () => {
     if ($currentLI) {
         setActiveFilterStatusBtn($currentLI);
     }
+    
+    // set the focus to the new tem input
+    document.querySelector('#newItem').focus();
 });
 
 document.querySelector('body').addEventListener('click', (event) => {
