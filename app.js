@@ -311,18 +311,19 @@ function setStateFromLocalStorage() {
     }
 }
 
+// ADD EVENTS TO THE BODY TO APPLY ACCESSIBILITY
 function addEventsToAccessibility() {
     document.querySelector('body').addEventListener('click', function(event) {
         removeActiveClassFromItemUI(event);
     });
     document.querySelector('body').addEventListener('keyup', function(event) {
         if (event.key === 'Tab') {
-            console.log('sexo')
             removeActiveClassFromItemUI(event);
         }
     });
 }
 
+// ADD ACCESSIBILITY BY REMOVING active CLASS THAT SHOW BUTTONS ON FOCUSED ITEM
 function removeActiveClassFromItemUI(event) {
     if (event.target.parentElement) {
         if(event.target.parentElement.classList.contains('list-item')) return;
@@ -337,6 +338,7 @@ function removeActiveClassFromItemUI(event) {
     }
 }
 
+// ADD ACCESSIBILITY BY SHOWING BUTTONS ON FOCUSED ITEM
 function addAccessibilityToCheckmark(event) {
     document.querySelectorAll('.list li').forEach(item => {
         item.classList.remove('active');
